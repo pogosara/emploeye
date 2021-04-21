@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import "./App.css"
+import {authMeTC} from "./reducers/reducerAUTH";
+import {useDispatch} from "react-redux";
+import {Route} from 'react-router-dom';
+import {Login} from './Auth/1-login/login';
+import {Table} from './Components/table';
+import {Register} from './Auth/2-register/register';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(authMeTC())
+    }, [dispatch])
+
+    return (
+        <div className="App">
+
+
+            <Route path={'/'} exact render={() => <Table/>}/>
+            <Route path={'/login'} exact render={() => <Login/>}/>
+            <Route path={'/register'} exact render={() => <Register/>}/>
+
+        </div>
+    );
 }
 
 export default App;
